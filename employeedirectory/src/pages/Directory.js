@@ -1,24 +1,39 @@
 import React from "react";
 import API from "../utils/API";
+import UserTable from "../components/UserTable";
+import SearchForm from "../components/SearchForm";
+import {Container, Card} from "react-bootstrap";
 
 class Directory extends React.Component {
     state = {
         name: "",
         role: "",
         manager: "",
-        users: []
+        users: [],
+        search: ""
+    }
+
+    updateSearch = (search) => {
+        this.setState({search});
     }
 
     componentDidMount() {
         API
             .getUsers()
             .then(res => {
-                console.log(res.data);
+                this.setState({users: res.data.results});
             });
     }
 
     render() {
-        return <span>User count: {this.state.users.length}</span>;
+        return (
+            <Container>
+                <Card>
+                    <SearchForm updateSearch={this.updateSearch} />
+                </Card>
+                <UserTable users={this.state.users} search={this.state.search} />
+            </Container>
+        );
     }
 }
 
