@@ -1,6 +1,5 @@
 import React from "react";
 import {Table} from "react-bootstrap";
-import Directory from "../../pages/Directory";
 
 function UserTable(props, sort) {
 
@@ -16,10 +15,10 @@ function UserTable(props, sort) {
         const locationB = `${userB.location.city}, ${userB.location.state}`
 
         if (locationA < locationB){
-            return sort === "asc" ? -1 : 1;
+            return props.sort === "asc" ? -1 : 1;
         }
         if (locationA > locationB){
-            return sort === "asc" ? 1 : -1;
+            return props.sort === "asc" ? 1 : -1;
         }
 
         return 0;
@@ -35,8 +34,8 @@ function UserTable(props, sort) {
                     <th scope="col">Phone #</th>
                     <th scope="col">Address</th>
                     Location
-                        {/* <button onClick={() => updateSort("asc")} >Ascending</button> */}
-                        {/* <button onClick={() => updateSort("dec")} >Descending</button> */}
+                        <button onClick={() => props.updateSort("asc")} >Ascending</button>
+                        <button onClick={() => props.updateSort("dec")} >Descending</button>
                 </tr>
             </thread>
             <tbody>
